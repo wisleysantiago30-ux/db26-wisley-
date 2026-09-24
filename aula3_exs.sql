@@ -1,0 +1,1 @@
+INSERT INTO production.categories (category_name) VALUES ('category_number');

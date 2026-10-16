@@ -5,7 +5,10 @@ CREATE TABLE HR.training_job (
 CREATE TABLE HR.training_assignment (
     assignment_id INT NOT NULL PRIMARY KEY,
     job_code VARCHAR(10) NOT NULL
+            
 );
+
+
 
 SELECT * FROM INFORMATION_SCHEMA.TABLES t WHERE t.TABLE_NAME LIKE '%training%';
 
@@ -26,5 +29,23 @@ ALTER TABLE HR.training_assignment
     REFERENCES HR.training_job (job_code);
 
 UPDATE HR.training_assignment 
-    SET job_code = 'A'
+    SET job_code = 'B'
     WHERE assignment_id = 2
+
+
+UPDATE HR.training_job 
+    SET job_code = 'B'
+    WHERE job_id = 1 
+
+ALTER TABLE HR.training_assignment
+    DROP CONSTRAINT FK_training_assignment_job
+
+ALTER TABLE HR.training_assignment
+    ADD CONSTRAINT FK_training_assignment_job
+    FOREIGN KEY (job_code)
+    REFERENCES HR.training_job (job_code); 
+    ON UPDATE CASCADE
+    ON DELETE NO ACTION;   
+
+
+   

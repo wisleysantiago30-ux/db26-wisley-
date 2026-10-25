@@ -39,4 +39,25 @@ FROM HR.vw_department_headcount
 WHERE employee_count >= 3
 ORDER BY employee_count DESC;
 
+SELECT name, type_desc, create_date 
+FROM  sys.views 
+WHERE schema_id = SCHEMA_ID('HR') AND name = 'vw_department_headcount';
+
+/*A4*/
+
+CREATE NONCLUSTERED INDEX IX_learning_project_due_date
+ON HR.learning_project(due_date);
+
+SELECT name, is_disabled FROM sys.indexes
+WHERE object_id = OBJECT_ID('HR.learning_project', 'U');
+ALTER INDEX IX_learning_project_due_date 
+ON HR.learning_project DISABLE;
+
+SELECT name, is_disabled FROM sys.indexes
+WHERE object_id = OBJECT_ID('HR.learning_project', 'U');
+ALTER INDEX IX_learning_project_due_date
+ON HR.learning_project REBUILD;
+
+SELECT name, is_disabled FROM sys.indexes
+WHERE object_id = OBJECT_ID('HR.learning_project', 'U');
 
